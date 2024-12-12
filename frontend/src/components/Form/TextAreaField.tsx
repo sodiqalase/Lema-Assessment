@@ -17,7 +17,7 @@ const TextAreaField = ({
     required = false,
     inputClassName,
     error,
-    rows = 4,
+    rows = 5,
     ...props
 }: ITextAreaProps) => {
     return (

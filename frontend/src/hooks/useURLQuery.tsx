@@ -1,11 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import { useEffect, useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
-export const useURLQuery = <T extends Record<string, string | null>>(
+export const useURLQuery = <
+    T extends Record<string, string | null | undefined>,
+>(
     effectFn?: (data: T) => void
 ) => {
-    const search = useSearchParams()?.toString();
+    const search = useSearchParams().toString();
     const router = useRouter();
     const pathname = usePathname();
 
@@ -29,14 +31,16 @@ export const useURLQuery = <T extends Record<string, string | null>>(
             clearAll: boolean = false
         ) => {
             const url = new URLSearchParams(clearAll ? "" : search);
+
             Object.keys(queries).forEach((key) => {
                 const value = queries[key];
-                if (value !== null) {
+                if (value !== null && value !== undefined) {
                     url.set(key, String(value));
                 } else if (url.has(key)) {
                     url.delete(key);
                 }
             });
+
             router.replace(`${pathname}?${url.toString()}`);
         },
     };

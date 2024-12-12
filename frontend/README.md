@@ -1,97 +1,40 @@
-# Roppi NG Web Application
-
-This is the web application for **Roppi NG**, where customers can browse products as guests, sign up, log in, access product catalogs and stores, and do checkouts.  
-The project was bootstrapped using [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lema Frontend Assessment
 
 ---
 
 ## Code Structure
 
-- **app/**: Handles all routing for the application, functioning similarly to `react-router`.  
-  > **Note**: Please avoid creating components within the `app` folder. Use the `views` folder for page components.
-  
-- **components/**: Contains reusable components used across the application. Any code that is used more than once should be placed here.
-  
-- **hooks/**: Stores all custom React hooks.
-  
-- **interfaces/**: All TypeScript types and interfaces are housed in this folder.
-  
-- **enums/**: Contains all enumerations used in the project.
-  
-- **layout/**: Holds layout-related components like `Navbar`, `Footer`, `Sidebar`, and `AuthLayout`.
-  
-- **services/**: Contains all API service calls.
-  
-- **styles/**: Includes SCSS styles. You can add new styles to the global SCSS file or create dedicated partials as needed.
-  
-- **utils/**: Contains reusable utility functions and code logic.
-  
-- **views/**: Holds page components, organized by functionality. For example, `Auth/LoginPage`, `Auth/SignupPage`, `Homepage/*`, `LandingPage/`.
-  
-- **zustand/**: Manages global state using the Zustand state management library.
-
----
-
-## File Changes
-
-To facilitate code review, a single Pull Request (PR) should not modify more than **20 files**.  
-If your changes are likely to exceed this limit, create a **temporary branch** (e.g., `feature/landing-page`) with the initial 20 file changes, and raise subsequent PRs against that branch. This approach keeps reviews manageable and efficient.
-
----
-
-## Branch Naming Convention
-
-Follow the naming conventions below to maintain clarity and consistency in the codebase:
-
-- **Features**: `feature/short-description`  
-  Example: `feature/login-functionality`
-  
-- **Bug Fixes**: `bugfix/short-description`  
-  Example: `bugfix/fix-cart-issue`
-  
-- **Hot Fixes**: `hotfix/short-description`  
-  Example: `hotfix/critical-login-error`
-  
-- **Refactoring**: `refactor/short-description`  
-  Example: `refactor/clean-up-auth-module`
-
----
-
-## Raising Pull Requests (PRs)
-
-When raising a PR, please adhere to the following guidelines:
-
-1. **Descriptive Title**:  
-   Provide a concise and clear title.  
-   Example: `Add Login Module`
-
-2. **Detailed Description**:  
-   Provide a brief overview of the changes in bullet points.  
-   Example:
-   - Scaffold login screen
-   - Create reusable input fields
-   - Integrate authentication API for sign-up and login
-   
-3. **Respond to Feedback**:  
-   Be prompt in addressing comments and making any necessary changes.
+- **app/**: Handles all routing for the application.
+- **components/**: Contains reusable components shared across the application.
+- **hooks/**: Contains reusable React hooks for managing shared logic.
+- **interfaces/**: Stores all TypeScript types and interfaces for the application.
+- **services/**: Includes all API service call logic.
+- **styles/**: Contains global SCSS files, partials, and tailwind setup for application styling.
+- **utils/**: Holds reusable utility functions and shared logic.
+- **views/**: Contains page components organized by functionality, 
+ 
 
 ---
 
 ## Setup Instructions
 
+### Prerequisites
+- Node.js `^16.0.0`
+- Yarn `^1.22.0`
+
+### Installation
+
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/RoppiDev/roppi-shop.git
+    git clone https://github.com/sodiqalase/Lema-Assessment.git
     ```
 
-2. Create a new branch:
+2. Navigate to the project directory:
 
     ```bash
-    git checkout -b feature/[branch-name]
+    cd [project-directory]/frontend
     ```
-
-    > **Note**: Please use only **Yarn** as the package manager.
 
 3. Install dependencies:
 
@@ -99,24 +42,17 @@ When raising a PR, please adhere to the following guidelines:
     yarn
     ```
 
-4. Prepare husky:
+4. Run the development server:
 
     ```bash
-    yarn run postinstall
+    yarn dev
     ```
 
-5. Run the development server:
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-    ```bash
-    yarn run dev
-    ```
+### Testing
 
-6. For production build:
+Run tests using Jest:
 
-    ```bash
-    yarn run build
-    ```
-
-Once the server is running, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
-
----
+```bash
+yarn test:watch

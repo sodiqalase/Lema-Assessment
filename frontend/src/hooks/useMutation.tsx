@@ -30,7 +30,7 @@ interface IMutationProps {
     customErrorMessage?: string;
 }
 
-export function useMutation<TBody extends object, TResponse>(
+export function useMutation<TBody extends object, TResponse = any>(
     props: IMutationProps
 ) {
     const {
@@ -54,8 +54,8 @@ export function useMutation<TBody extends object, TResponse>(
      */
     const makeRequest = async (
         body?: TBody,
-        axiosOptions: AxiosRequestConfig = {},
-        urlParams: IUrlParams = {}
+        urlParams: IUrlParams = {},
+        axiosOptions: AxiosRequestConfig = {}
     ): Promise<TResponse> => {
         setIsLoading(true);
 

@@ -4,49 +4,54 @@ import React, { useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence } from "framer-motion";
 import ConfirmationModal from "../Modal/ConfirmationModal";
+import { IPost } from "@/interfaces/post.interface";
+import PostService from "@/services/post.service";
 
-const PostCard = () => {
-    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+interface Props {
+    post: IPost;
+}
+
+const PostCard = ({ post }: Props) => {
+    const [deleteId, setDeleteId] = useState<null | string>(null);
+
+    const deleteApi = PostService.deletePost();
+
+    const deleteUserPost = () => {
+        deleteApi.makeRequest({}, { postId: deleteId! }).then(() => {
+            setDeleteId(null);
+        });
+    };
 
     return (
         <>
             <AnimatePresence>
-                {showConfirmationModal && (
+                {deleteId && (
                     <ConfirmationModal
                         title="Delete Post!"
                         description="Are you sure you want to proceed with this action?"
+                        isSubmitting={deleteApi.isLoading}
                         onCancel={() => {
-                            setShowConfirmationModal(false);
+                            setDeleteId(null);
                         }}
-                        onProceed={() => {}}
+                        onProceed={deleteUserPost}
                     />
                 )}
             </AnimatePresence>
             <div className="rounded-lg transition-transform hover:scale-105 duration-500 flex flex-col relative shadow-card h-full bg-white border-line2 border p-4">
                 <button
                     onClick={() => {
-                        setShowConfirmationModal(true);
+                        setDeleteId(post.id);
                     }}
                     data-testid="delete-post"
                     className="absolute top-[6px] p-1 rounded hover:bg-red100/10 outline-none right-[6px]"
                 >
-                    <TrashIcon className="w-4 h-4 text-red100" />
+                    {<TrashIcon className="w-4 h-4 text-red100" />}
                 </button>
                 <h5 className="text-lg w-[95%] leading-6 font-medium text-primary">
-                    How can Anyone Eat Pizza at a Time Like This?
+                    {post.title}
                 </h5>
                 <div className="line-clamp-[7]  sm:line-clamp-[9]">
-                    <p className="mt-3 font-normal text-sm ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit
-                    </p>
+                    <p className="mt-3 font-normal text-sm ">{post.body}</p>
                 </div>
             </div>
         </>

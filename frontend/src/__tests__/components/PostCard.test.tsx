@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import PostCard from "@/components/UserPost/PostCard";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { Providers } from "@/app/providers";
 
 interface Props {
     onProceed: () => void;
@@ -8,6 +9,14 @@ interface Props {
     title: string;
     description: string;
 }
+
+const dummyPost = {
+    id: "a92683a2abde49b98a08114022924e23",
+    user_id: "ee10b0e8346a4a0d990668fd1155fbc2",
+    title: "Nemo a quis non provident consequatur.",
+    body: "Qui et rerum recusandae qui consequatur. Qui aut placeat nemo sunt in. Rerum dolores ea ad excepturi voluptates. Aut sit quis facere non ex. Quisquam iste omnis accusamus dignissimos numquam. Ipsam aut dolore itaque animi unde. Rem est nulla porro vero tenetur. Ut consequatur quia nam autem officia.",
+    created_at: "2024-03-01T13:30:14+02:00",
+};
 
 // Mock the ConfirmationModal component
 jest.mock("../../components/Modal/ConfirmationModal", () => {
@@ -23,7 +32,11 @@ jest.mock("../../components/Modal/ConfirmationModal", () => {
 
 describe("PostCard", () => {
     it("should display the confirmation modal when the delete button is clicked", () => {
-        render(<PostCard />);
+        render(
+            <Providers>
+                <PostCard post={dummyPost} />
+            </Providers>
+        );
 
         // Check that the modal is not in the document initially
         expect(screen.queryByTestId("confirmation-modal")).toBeNull();
@@ -42,7 +55,11 @@ describe("PostCard", () => {
     });
 
     it("should close the modal when cancel button is clicked", () => {
-        render(<PostCard />);
+        render(
+            <Providers>
+                <PostCard post={dummyPost} />
+            </Providers>
+        );
 
         // Open the modal by clicking the delete button
         fireEvent.click(screen.getByTestId("delete-post"));

@@ -6,6 +6,8 @@ import Button from "../Button/Button";
 import { object, string } from "yup";
 import { useFormik } from "formik";
 import { evaluateFormikError } from "@/utils/formik.util";
+import PostService from "@/services/post.service";
+import { useParams } from "next/navigation";
 
 export const schema = object({
     title: string().required().trim().label("Title"),
@@ -17,6 +19,9 @@ interface Props {
 }
 
 const CreatePostModal = ({ onClose }: Props) => {
+    const params = useParams<{ userId: string }>();
+    const createApi = PostService.createPost();
+
     const form = useFormik({
         initialValues: {
             title: "",
@@ -25,7 +30,13 @@ const CreatePostModal = ({ onClose }: Props) => {
         validateOnMount: true,
         enableReinitialize: false,
         validationSchema: schema,
-        onSubmit: () => {},
+        onSubmit: (values) => {
+            createApi
+                .makeRequest({ user_id: params.userId, ...values })
+                .then(() => {
+                    onClose();
+                });
+        },
     });
 
     const { isValid, errors, handleSubmit, touched, getFieldProps } = form;
@@ -53,10 +64,20 @@ const CreatePostModal = ({ onClose }: Props) => {
                 />
                 <div className="flex justify-end">
                     <div className="flex items-center gap-x-4">
-                        <Button onClick={onClose} variant="secondary">
+                        <Button
+                            disabled={createApi.isLoading}
+                            onClick={onClose}
+                            variant="secondary"
+                        >
                             Cancel
                         </Button>
-                        <Button disabled={!isValid}>Publish</Button>
+                        <Button
+                            type="submit"
+                            loading={createApi.isLoading}
+                            disabled={!isValid || createApi.isLoading}
+                        >
+                            Publish
+                        </Button>
                     </div>
                 </div>
             </form>

@@ -1,15 +1,24 @@
 "use client";
 
 import Table from "@/components/Table/Table";
-// import UserService from "@/services/user.service";
+import { useURLQuery } from "@/hooks/useURLQuery";
+import UserService from "@/services/user.service";
 import { useRouter } from "next/navigation";
 import React from "react";
-const tableData = Array(10).fill("");
+
+const pageSize = 10;
 
 const UsersIndexPage = () => {
     const router = useRouter();
+    const { value } = useURLQuery();
+    const pageNumber = Math.abs(Number(value?.page ?? "1") - 1);
+    const { data, isLoading } = UserService.fetchUsers({
+        pageSize,
+        pageNumber,
+    });
+    const userCount = UserService.fetchUsersCount();
 
-    // const { data, isLoading } = UserService.fetchUsers();
+    const totalPages = Math.ceil(userCount?.data?.count ?? 1) / 10;
 
     return (
         <>
@@ -17,27 +26,28 @@ const UsersIndexPage = () => {
 
             <div className="mt-5 mb-10">
                 <Table
-                    tableData={tableData}
-                    // isLoading={isLoading}
+                    tableData={data ?? []}
+                    isLoading={isLoading}
                     columns={[
                         {
                             header: "Full Name",
-                            view: () => "James Sunderland",
+                            view: (row) => row.name,
                             rowStyle: "font-medium",
                         },
                         {
                             header: "Email Address",
-                            view: () => "james.sunderland@acme.corp",
+                            view: (row) => row.email,
                         },
                         {
                             header: "Address",
-                            view: () =>
-                                "11 Katz St., Pennsylvania, Centralia, M4A2T6 ",
+                            view: (row) => row?.address ?? "Not Provided",
                         },
                     ]}
-                    totalPages={20}
-                    clickRowAction={() => {
-                        router.push(`${1}`);
+                    totalPages={totalPages}
+                    clickRowAction={(row) => {
+                        router.push(
+                            `/${row.id}?name=${row.name}&email=${row.email}`
+                        );
                     }}
                 />
             </div>

@@ -7,6 +7,7 @@ interface Props {
     onCancel: () => void;
     title: string;
     description: string;
+    isSubmitting: boolean;
 }
 
 const ConfirmationModal = ({
@@ -14,6 +15,7 @@ const ConfirmationModal = ({
     onProceed,
     title,
     description,
+    isSubmitting,
 }: Props) => {
     return (
         <ModalShell preventClose onClose={onCancel}>
@@ -31,7 +33,9 @@ const ConfirmationModal = ({
                         <Button onClick={onCancel} variant="secondary">
                             No
                         </Button>
-                        <Button onClick={onProceed}>Yes</Button>
+                        <Button loading={isSubmitting} onClick={onProceed}>
+                            Yes
+                        </Button>
                     </div>
                 </div>
             </section>

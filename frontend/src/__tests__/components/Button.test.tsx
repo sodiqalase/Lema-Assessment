@@ -1,8 +1,5 @@
-// __tests__/components/Button.test.tsx
 import { render, screen, fireEvent } from "@testing-library/react";
 import Button from "@/components/Button/Button";
-
-// Mocking Loader component
 
 describe("Button Component", () => {
     it("renders a button with text", () => {

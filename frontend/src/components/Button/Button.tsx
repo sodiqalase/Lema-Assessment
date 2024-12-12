@@ -1,8 +1,6 @@
 import clsx from "clsx";
 import { forwardRef } from "react";
-import Loader from "../Loader";
 import Image from "next/image";
-
 import {
     buttonSizeMap,
     buttonVariantStylesMap,
@@ -11,6 +9,7 @@ import {
     IButtonVariant,
 } from "./config";
 import Link, { LinkProps } from "next/link";
+import Spinner from "../Spinner";
 
 type NextLinkType = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
@@ -66,13 +65,13 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
         ref
     ) => {
         const styles = clsx([
-            "items-center rounded gap-x-2 px-5 justify-center relative overflow-hidden",
+            "items-center rounded gap-x-2 px-5 flex justify-center relative overflow-hidden",
             // icon ? "px-5" : "px-6",
             disabled &&
                 "disabled:cursor-not-allowed disabled:hover:bg-opacity-50",
             disabled && "bg-opacity-50",
             buttonVariantStylesMap[variant],
-            fullWidth ? "w-full flex" : "whitespace-nowrap inline-block",
+            fullWidth ? "w-full" : "whitespace-nowrap w-auto",
             buttonSizeMap[buttonSize],
             className,
         ]);
@@ -144,7 +143,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
             >
                 {loading && (
                     <span className="flex items-center justify-center">
-                        <Loader />
+                        <Spinner />
                     </span>
                 )}
                 {_children}
