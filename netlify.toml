@@ -1,8 +1,3 @@
-[build]
-  base = "frontend"  # This sets the base directory to 'frontend'
-  publish = "frontend/.next"  # The output directory for the build
-  command = "npm run build"  # Command to build the app, assuming you're using npm
-
 [[redirects]]
   from = "/*"
   to = "/index"
