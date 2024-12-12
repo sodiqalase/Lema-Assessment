@@ -14,7 +14,7 @@ This repository contains a fullstack application with a Users and Posts system. 
 
 ### Clone the repository:
 ```bash
-git clone <repository_url>
+git clone https://github.com/sodiqalase/Lema-Assessment.git
 cd <repository_name>
 ```
 
@@ -51,25 +51,19 @@ This folder contains the frontend code for the Users and Posts system, built wit
 
 ### Installation
 
-1. Clone the repository:
+1. Navigate to the project directory:
 
     ```bash
-    git clone https://github.com/sodiqalase/Lema-Assessment.git
+    cd frontend
     ```
 
-2. Navigate to the project directory:
-
-    ```bash
-    cd [project-directory]/frontend
-    ```
-
-3. Install dependencies:
+2. Install dependencies:
 
     ```bash
     yarn
     ```
 
-4. Run the development server:
+3. Run the development server:
 
     ```bash
     yarn dev
