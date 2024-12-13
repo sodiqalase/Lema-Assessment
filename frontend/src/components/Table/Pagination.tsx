@@ -31,7 +31,6 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
                 containerClassName="flex justify-center items-center"
                 pageClassName="bg-white rounded-lg cursor-pointer text-center text-primary text-sm font-medium"
                 activeClassName="!text-darkPurple !bg-lightPurple"
-                // activeLinkClassName="!text-white !bg-ksu-textBody !border-ksu-textBody"
                 pageLinkClassName="flex items-center justify-center h-10 w-10 hover:no-underline no-underline"
             />
         </div>
